@@ -1,0 +1,15 @@
+hr\airquality\web\PostajeServlet.class
+hr\airquality\dto\PostajaDTO.class
+hr\airquality\rest\ApplicationConfig.class
+hr\airquality\model\Mreza.class
+hr\airquality\web\PostajaServlet.class
+hr\airquality\dto\MrezaSimpleDTO.class
+hr\airquality\rest\CORSFilter.class
+hr\airquality\dto\MrezaDTO.class
+hr\airquality\rest\PostajaResource$PostajaUpdateDTO.class
+hr\airquality\web\MrezeServlet.class
+hr\airquality\web\FreeMarkerConfig.class
+hr\airquality\rest\MrezaResource.class
+hr\airquality\service\AirQualityService.class
+hr\airquality\model\Postaja.class
+hr\airquality\rest\PostajaResource.class
