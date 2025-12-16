@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <title>Air Quality - Mreže i Postaje</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .aktivna { color: green; cursor: pointer; }
-        .neaktivna { color: grey; cursor: pointer; }
-        .pointer { cursor: pointer; }
-    </style>
+    <link href="./css/main.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-4">
@@ -24,7 +20,6 @@
     </div>
 </div>
 
-<!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -54,106 +49,7 @@
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-$(function() {
-    const API_BASE = "http://localhost:8081/airquality/api";
-    let mreze = [];
-    let postaje = [];
-    let selectedNetwork = null;
-    let selectedPostaja = null;
+<script src="./js/main.js"></script>
 
-    const $networksList = $("#networksList");
-    const $postajeList = $("#postajeList");
-    const $networksSection = $("#networksSection");
-    const $stationsSection = $("#stationsSection");
-    const $mrezaNaziv = $("#mrezaNaziv");
-
-    function fetchNetworks() {
-        $.getJSON(`${API_BASE}/networks`, function(data) {
-            mreze = data;
-            renderNetworks();
-        }).fail(() => alert("Greška pri dohvaćanju mreža"));
-    }
-
-    function renderNetworks() {
-        $networksList.empty();
-        mreze.forEach(m => {
-            $("<li>")
-                .addClass("list-group-item pointer")
-                .text(m.naziv)
-                .click(() => openNetwork(m.naziv))
-                .appendTo($networksList);
-        });
-    }
-
-    function openNetwork(naziv) {
-        selectedNetwork = naziv;
-        $networksSection.hide();
-        $stationsSection.show();
-        $mrezaNaziv.text(naziv);
-        fetchPostaje(naziv);
-    }
-
-    $("#backToNetworks").click(function() {
-        $stationsSection.hide();
-        $networksSection.show();
-        selectedNetwork = null;
-    });
-
-    function fetchPostaje(nazivMreze) {
-        $.getJSON(`${API_BASE}/stations/${encodeURIComponent(nazivMreze)}`, function(data) {
-            postaje = data;
-            renderPostaje();
-        }).fail(() => alert("Greška pri dohvaćanju postaja"));
-    }
-
-    function renderPostaje() {
-        $postajeList.empty();
-        postaje.forEach(p => {
-            $("<li>")
-                .addClass("list-group-item")
-                .addClass(p.aktivna ? "aktivna" : "neaktivna")
-                .text(p.naziv)
-                .click(() => editPostaja(p))
-                .appendTo($postajeList);
-        });
-    }
-
-    function editPostaja(p) {
-        selectedPostaja = p;
-        $("#nazivEng").val(p.nazivEng);
-        $("#aktivnaCheck").prop("checked", p.aktivna);
-        const modal = new bootstrap.Modal(document.getElementById('editModal'));
-        modal.show();
-    }
-
-    $("#editForm").submit(function(e) {
-        e.preventDefault();
-        const updated = {
-            nazivEng: $("#nazivEng").val(),
-            aktivna: $("#aktivnaCheck").is(":checked")
-        };
-        $.ajax({
-            url: `${API_BASE}/stations/${encodeURIComponent(selectedPostaja.naziv)}`,
-            method: "PUT",
-            contentType: "application/json",
-            data: JSON.stringify(updated),
-            success: function() {
-                // Ažuriraj lokalni array i boje odmah
-                selectedPostaja.nazivEng = updated.nazivEng;
-                selectedPostaja.aktivna = updated.aktivna;
-                renderPostaje();
-                bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
-            },
-            error: function() {
-                alert("Greška pri spremanju postaje");
-            }
-        });
-    });
-
-    // Pokreni dohvat mreža odmah
-    fetchNetworks();
-});
-</script>
 </body>
 </html>
