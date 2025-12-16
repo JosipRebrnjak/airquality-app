@@ -26,12 +26,31 @@ Runtime environment: OpenJDK Runtime Environment Corretto 17.0.14.7.1 (build 17.
 ## Backend Setup
 
 1. **Database configuration:**  
-   - Configure your relational database (MySQL/PostgreSQL/etc.).  
+   - Configure your relational database (MySQL/PostgreSQL/etc.). a 
    - Update the `persistence.xml` datasource to match your DB credentials.
 
 2. **Add initial dataset:**  
    - When you have compiled the app and deployed it on WildFly (or before), you need to add the dataset on WildFly which will access your SQL database.  
    - This ensures that the application has the initial networks and stations available.
+  
+  **Example (MySQL) using JBoss CLI:**
+
+   ```bash
+   .\wildfly-30.0.1.Final\bin\jboss-cli.bat
+
+   /subsystem=datasources/data-source=AirQualityDS:add(
+       jndi-name=java:/jdbc/AirQualityDS,
+       enabled=true,
+       driver-name=mysql,
+       connection-url="jdbc:mysql://localhost:3306/<db_name>?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
+       user-name=<username>,
+       password=<password>
+   )
+
+<db_name> - name of the database created in the first step
+<username> - user with privileges to access database
+<password> - password for the user
+
 
 3. **WildFly setup:**  
    - Deploy the `airquality-app.war` to WildFly 38.0.1.  
