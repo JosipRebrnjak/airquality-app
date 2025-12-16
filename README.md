@@ -23,11 +23,24 @@ The solution was developed in Visual Studio Code and deployed on WildFly 38.0.1.
 The backend is a Java EE REST API.
 Runtime environment: OpenJDK Runtime Environment Corretto 17.0.14.7.1 (build 17.0.14+7-LTS).
 
-API Documentation (Swagger)
+## Backend Setup
 
-Swagger UI is available for API documentation:
+1. **Database configuration:**  
+   - Configure your relational database (MySQL/PostgreSQL/etc.).  
+   - Update the `persistence.xml` datasource to match your DB credentials.
 
-http://<HOST:PORT>/airquality/swagger-ui/
+2. **Add initial dataset:**  
+   - When you have compiled the app and deployed it on WildFly (or before), you need to add the dataset on WildFly which will access your SQL database.  
+   - This ensures that the application has the initial networks and stations available.
+
+3. **WildFly setup:**  
+   - Deploy the `airquality-app.war` to WildFly 38.0.1.  
+   - Make sure the datasource is available in WildFly.
+
+4. **Swagger UI (API documentation):**  
+   Available at:  
+   http://<HOST:PORT>/airquality/swagger-ui/
+
 
 Additional configuration for Swagger UI
 
