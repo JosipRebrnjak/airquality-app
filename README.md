@@ -35,19 +35,19 @@ Runtime environment: OpenJDK Runtime Environment Corretto 17.0.14.7.1 (build 17.
   
   **Example (MySQL) using JBoss CLI:**
 
-   ```bash
    .\wildfly-30.0.1.Final\bin\jboss-cli.bat
 
    /subsystem=datasources/data-source=AirQualityDS:add(
        jndi-name=java:/jdbc/AirQualityDS,
        enabled=true,
        driver-name=mysql,
-       connection-url="jdbc:mysql://localhost:3306/<db_name>?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
+       connection-url="jdbc:mysql://<host:port>/<db_name>?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC",
        user-name=<username>,
        password=<password>
    )
 
-<db_name> - name of the database created in the first step
+<host:port> - host and port of database created in the first step e.g localhost:3306
+<db_name> - name of the database 
 <username> - user with privileges to access database
 <password> - password for the user
 

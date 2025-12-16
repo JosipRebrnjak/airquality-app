@@ -65,7 +65,9 @@ public class AirQualityService {
                     mreza.setNazivEng(mrezaJson.getString("nazivEng", ""));
                     mreza.setZadnjaPromjena(Timestamp.from(Instant.now()));
                     mreza.setPostaje(new ArrayList<>());
+                    //JPA generira insert 
                     em.persist(mreza);
+                    //slanje upita
                     em.flush();
                 } else {
                     mreza = result.get(0);
@@ -96,7 +98,9 @@ public class AirQualityService {
                             postaja.setAktivna(pJson.getBoolean("aktivan", false));
                             postaja.setZadnjaPromjena(Timestamp.from(Instant.now()));
                             postaja.setMreza(mreza);
+                             //JPA generira insert 
                             em.persist(postaja);
+                            //slanje upita
                             em.flush();
                             mreza.getPostaje().add(postaja);
                         } else {

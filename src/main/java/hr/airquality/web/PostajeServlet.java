@@ -13,6 +13,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+
+/*
+ * Putanja za FreeMarker klijenta - postaje
+*/
+
 @WebServlet("/fm/postaje")
 public class PostajeServlet extends HttpServlet {
 

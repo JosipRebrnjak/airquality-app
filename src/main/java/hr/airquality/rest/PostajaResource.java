@@ -12,6 +12,10 @@ import java.util.List;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
+/*
+ * REST za vanjske klijente - postaje
+*/
+
 @Path("/stations")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -70,14 +74,5 @@ public class PostajaResource {
                     .build();
         }
         return Response.ok("{\"status\":\"success\"}").build();
-    }
-
-    
-    @GET
-    @Path("/sync")
-    @Operation(summary = "Sinkronizacija podataka sa vanjskim servisom")
-    public Response syncPostaje() {
-        airService.syncMreze();
-        return Response.ok("{\"status\":\"success\",\"message\":\"Sync završen\"}").build();
     }
 }

@@ -11,6 +11,16 @@ $(function() {
     const $stationsSection = $("#stationsSection");
     const $mrezaNaziv = $("#mrezaNaziv");
 
+
+    $("#syncData").click(function() {
+        $.getJSON(`${API_BASE}/networks/sync`, function(data) {
+            $("#messageSection").text(data.message)
+            setTimeout(() => {
+                $("#messageSection").text("");
+            }, 3000);
+        }).fail(() => alert("Greška pri sinkroniziranju podataka"));
+    });
+
     function fetchNetworks() {
         $.getJSON(`${API_BASE}/networks`, function(data) {
             mreze = data;
@@ -54,8 +64,8 @@ $(function() {
         $postajeList.empty();
         postaje.forEach(p => {
             $("<li>")
-                .addClass("list-group-item")
-                .addClass(p.aktivna ? "aktivna" : "neaktivna")
+                .addClass("list-group-item pointer")
+                .addClass(p.aktivna ? "list-group-item-success" : "list-group-item-secondary")
                 .text(p.naziv)
                 .click(() => editPostaja(p))
                 .appendTo($postajeList);

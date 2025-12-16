@@ -17,6 +17,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/*
+ * Putanja za FreeMarker klijenta - mreže 
+ */
+
 @WebServlet("/fm/mreze")
 public class MrezeServlet extends HttpServlet {
 
