@@ -1,43 +1,39 @@
 package hr.airquality.rest;
 
+import hr.airquality.dto.MrezaDTO;
 import hr.airquality.dto.MrezaSimpleDTO;
-import hr.airquality.service.AirQualityService;
+import hr.airquality.service.MrezaService;
+import hr.airquality.exception.NotFoundException;
 
-import jakarta.ejb.EJB;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
 import java.util.List;
-
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-
-/*
- * REST za vanjske klijente - mreže
-*/
 
 @Path("/networks")
 @Produces(MediaType.APPLICATION_JSON)
-@Tag(name = "Mjerne mreže", description = "API za mjerne mreže")
+@Consumes(MediaType.APPLICATION_JSON)
 public class MrezaResource {
 
-    @EJB
-    private AirQualityService airQualityService;
+    @Inject
+    private MrezaService mrezaService;
 
     @GET
-    @Operation(summary = "Dohvat mreža")
-    public List<MrezaSimpleDTO> getAllMreze() {
-        return airQualityService.getAllMrezeSimple();
+    public Response getAllMrezeSimple() {
+        List<MrezaSimpleDTO> mreze = mrezaService.getAllMrezeSimple();
+        return Response.ok(mreze).build();
     }
 
     @GET
-    @Path("/sync")
-    @Operation(summary = "Sinkronizacija podataka sa vanjskim servisom")
-    public Response syncPostaje() {
-        airQualityService.syncMreze();
-        return Response.ok("{\"status\":\"success\",\"message\":\"Sync završen\"}").build();
+    @Path("/{naziv}")
+    public Response getMreza(@PathParam("naziv") String naziv) {
+        MrezaDTO mreza = mrezaService.getMrezaByNaziv(naziv);
+
+        if (mreza == null) {
+            throw new NotFoundException("Mreža sa nazivom '" + naziv + "' nije pronađena");
+        }
+
+        return Response.ok(mreza).build();
     }
 }

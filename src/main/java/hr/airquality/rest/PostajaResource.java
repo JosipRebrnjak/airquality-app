@@ -1,78 +1,62 @@
 package hr.airquality.rest;
 
 import hr.airquality.dto.PostajaDTO;
-import hr.airquality.service.AirQualityService;
+import hr.airquality.service.PostajaService;
+import hr.airquality.exception.NotFoundException;
 
-import jakarta.ejb.EJB;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
 
-import org.eclipse.microprofile.openapi.annotations.Operation;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
-
-/*
- * REST za vanjske klijente - postaje
-*/
-
 @Path("/stations")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Tag(name = "Mjerne postaje", description = "API za postaje mjernih mreža")
 public class PostajaResource {
 
-    @EJB
-    private AirQualityService airService;
-
+    @Inject
+    private PostajaService postajaService;
 
     @GET
-    @Path("/{mrezaNaziv}")
-    @Operation(summary = "Dohvat svih postaja u traženoj mreži")
-    public Response getPostajeByMreza(@PathParam("mrezaNaziv") String mrezaNaziv) {
-        List<PostajaDTO> postaje = airService.getMrezaDTOByNaziv(mrezaNaziv).getPostaje();
-        if (postaje == null) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("{\"error\":\"Mreža ili postaje nisu pronađene\"}")
-                    .build();
-        }
+    public Response getAllPostaje() {
+        List<PostajaDTO> postaje = postajaService.getAllPostaje();
         return Response.ok(postaje).build();
     }
 
-  
-    public static class PostajaUpdateDTO {
-        public String nazivEng;
-        public boolean aktivna;
+    @GET
+    @Path("/{naziv}")
+    public Response getPostaja(@PathParam("naziv") String naziv) {
+        PostajaDTO postaja = postajaService.getPostajaByNaziv(naziv);
+        return Response.ok(postaja).build();
     }
 
     @GET
-    @Path("/{mrezaNaziv}/{postajaNaziv}")
-    @Operation(summary = "Dohvat pojedine postaje u mreži")
-    public PostajaDTO getPostaja(
-            @PathParam("mrezaNaziv") String mrezaNaziv,
-            @PathParam("postajaNaziv") String postajaNaziv) {
+    @Path("/{naziv}/{mreza}")
+    public Response getPostajaByMreza(
+            @PathParam("naziv") String naziv,
+            @PathParam("mreza") String mrezaNaziv) {
 
-        PostajaDTO postajaDto = airService.getPostajaDTOByNazivAndMreza(postajaNaziv, mrezaNaziv);
-        if (postajaDto == null) {
-            throw new WebApplicationException("Postaja nije pronađena", 404);
-        }
-        return postajaDto;
+        PostajaDTO postaja = postajaService.getPostajaByNazivAndMreza(naziv, mrezaNaziv);
+        return Response.ok(postaja).build();
     }
 
     @PUT
-    @Path("/{postajaNaziv}")
-    @Operation(summary = "Uređivanje postaje")
+    @Path("/{naziv}")
     public Response updatePostaja(
-            @PathParam("postajaNaziv") String postajaNaziv,
-            @QueryParam("mrezaNaziv") String mrezaNaziv,
-            PostajaUpdateDTO update) {
+            @PathParam("naziv") String naziv,
+            PostajaDTO postajaDto) {
 
-        boolean updated = airService.updatePostaja(postajaNaziv, update.nazivEng, update.aktivna);
-        if (!updated) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("{\"error\":\"Postaja nije pronađena za update\"}")
-                    .build();
+        boolean success = postajaService.updatePostaja(
+                naziv,
+                postajaDto.getNazivEng(),
+                postajaDto.isAktivna()
+        );
+
+        if (!success) {
+            throw new NotFoundException("Postaja '" + naziv + "' nije pronađena");
         }
-        return Response.ok("{\"status\":\"success\"}").build();
+
+        return Response.ok().build();
     }
 }

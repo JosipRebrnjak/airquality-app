@@ -23,7 +23,10 @@ import java.util.List;
 
 @Stateless
 public class AirQualityService {
-
+    /**
+     * Naziv "persistence" jedinice (persistence.xml)
+     * "em(EntityManager)" je JPA objekt za rad sa bazom
+     */
     @PersistenceContext(unitName = "AirPU")
     private EntityManager em;
 
@@ -38,7 +41,7 @@ public class AirQualityService {
             URL url = new URL(API_URL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-
+            //JSON koji primamo sadrži hrvatske dijakritičke znakove, pa nam treba UTF_8
             JsonReader reader = Json.createReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
             JsonArray mrezeArray = reader.readArray(); 
 
@@ -125,6 +128,9 @@ public class AirQualityService {
         }
     }
 
+     /**
+     * Metode za rad sa mrežama
+     */
   
     public Mreza getMrezaByNaziv(String naziv) {
         return em.createQuery(
@@ -170,6 +176,11 @@ public class AirQualityService {
                 .map(m -> new MrezaSimpleDTO(m.getNaziv(), m.getNazivEng()))
                 .toList();
     }
+
+    
+     /**
+     * Metode za rad sa postajama
+     */
 
     public PostajaDTO getPostajaDTOByNaziv(String naziv) {
         Postaja postaja = em.createQuery(
