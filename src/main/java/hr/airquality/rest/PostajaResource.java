@@ -2,7 +2,6 @@ package hr.airquality.rest;
 
 import hr.airquality.dto.PostajaDTO;
 import hr.airquality.service.PostajaService;
-import hr.airquality.exception.NotFoundException;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -47,5 +46,5 @@ public class PostajaResource {
         postajaService.updatePostaja(naziv, dto);
         return Response.noContent().build();
     }
-    
+
 }
