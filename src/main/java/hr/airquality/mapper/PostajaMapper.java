@@ -19,15 +19,17 @@ public class PostajaMapper {
         );
     }
 
-    // Opcionalno: DTO → entitet za POST/PUT
+    public void updateFromDto(Postaja postaja, PostajaDTO dto) {
+        postaja.setNazivEng(dto.getNazivEng());
+        postaja.setAktivna(dto.isAktivna());
+    }
+
     public Postaja toEntity(PostajaDTO dto, hr.airquality.model.Mreza mreza) {
         if (dto == null) return null;
 
-        Postaja postaja = new Postaja();
-        postaja.setNaziv(dto.getNaziv());
+        Postaja postaja = new Postaja(dto.getNaziv(), mreza);
         postaja.setNazivEng(dto.getNazivEng());
         postaja.setAktivna(dto.isAktivna());
-        postaja.setMreza(mreza);
 
         return postaja;
     }

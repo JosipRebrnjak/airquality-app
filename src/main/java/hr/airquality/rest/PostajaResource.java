@@ -43,20 +43,9 @@ public class PostajaResource {
 
     @PUT
     @Path("/{naziv}")
-    public Response updatePostaja(
-            @PathParam("naziv") String naziv,
-            PostajaDTO postajaDto) {
-
-        boolean success = postajaService.updatePostaja(
-                naziv,
-                postajaDto.getNazivEng(),
-                postajaDto.isAktivna()
-        );
-
-        if (!success) {
-            throw new NotFoundException("Postaja '" + naziv + "' nije pronađena");
-        }
-
-        return Response.ok().build();
+    public Response updatePostaja(@PathParam("naziv") String naziv, PostajaDTO dto) {
+        postajaService.updatePostaja(naziv, dto);
+        return Response.noContent().build();
     }
+    
 }

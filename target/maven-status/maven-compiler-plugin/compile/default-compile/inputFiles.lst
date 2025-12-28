@@ -4,6 +4,7 @@ C:\Projekti\airquality-app\src\main\java\hr\airquality\dto\PostajaDTO.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\exception\GlobalExceptionMapper.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\exception\NotFoundException.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\mapper\MrezaMapper.java
+C:\Projekti\airquality-app\src\main\java\hr\airquality\mapper\PostajaMapper.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\model\Mreza.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\model\Postaja.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\repository\MrezaRepository.java
@@ -12,10 +13,11 @@ C:\Projekti\airquality-app\src\main\java\hr\airquality\rest\ApplicationConfig.ja
 C:\Projekti\airquality-app\src\main\java\hr\airquality\rest\CORSFilter.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\rest\MrezaResource.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\rest\PostajaResource.java
-C:\Projekti\airquality-app\src\main\java\hr\airquality\service\AirQualityService.java
-C:\Projekti\airquality-app\src\main\java\hr\airquality\service\AirQualitySyncService.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\service\MrezaService.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\service\PostajaService.java
+C:\Projekti\airquality-app\src\main\java\hr\airquality\sync\AirQualitySyncService.java
+C:\Projekti\airquality-app\src\main\java\hr\airquality\sync\SyncClient.java
+C:\Projekti\airquality-app\src\main\java\hr\airquality\sync\SyncMapper.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\web\FreeMarkerConfig.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\web\MrezeServlet.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\web\PostajaServlet.java

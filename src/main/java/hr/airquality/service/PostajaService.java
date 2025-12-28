@@ -1,74 +1,97 @@
 package hr.airquality.service;
 
 import hr.airquality.dto.PostajaDTO;
-import hr.airquality.model.Postaja;
-import hr.airquality.model.Mreza;
-import hr.airquality.repository.PostajaRepository;
-import hr.airquality.repository.MrezaRepository;
 import hr.airquality.exception.NotFoundException;
 import hr.airquality.mapper.PostajaMapper;
+import hr.airquality.model.Mreza;
+import hr.airquality.model.Postaja;
+import hr.airquality.repository.MrezaRepository;
+import hr.airquality.repository.PostajaRepository;
+
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 @Stateless
 public class PostajaService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PostajaService.class);
+    private static final Logger log = LoggerFactory.getLogger(PostajaService.class);
+
+    private final PostajaRepository postajaRepository;
+    private final MrezaRepository mrezaRepository;
+    private final PostajaMapper mapper;
 
     @Inject
-    private PostajaRepository postajaRepository;
-
-    @Inject
-    private MrezaRepository mrezaRepository;
-
-    @Inject
-    private PostajaMapper mapper;
-
-    public PostajaDTO getPostajaByNaziv(String naziv) {
-        logger.info("Dohvat postaje s nazivom '{}'", naziv);
-        Postaja postaja = postajaRepository.findByNaziv(naziv)
-                .orElseThrow(() -> {
-                    logger.warn("Postaja '{}' nije pronađena", naziv);
-                    return new NotFoundException("Postaja '" + naziv + "' nije pronađena");
-                });
-
-        return mapToDto(postaja);
+    public PostajaService(PostajaRepository postajaRepository,
+                          MrezaRepository mrezaRepository,
+                          PostajaMapper mapper) {
+        this.postajaRepository = postajaRepository;
+        this.mrezaRepository = mrezaRepository;
+        this.mapper = mapper;
     }
 
-    public PostajaDTO getPostajaByNazivAndMreza(String naziv, String mrezaNaziv) {
-        Mreza mreza = mrezaRepository.findByNaziv(mrezaNaziv)
-                .orElseThrow(() -> new NotFoundException("Mreža '" + mrezaNaziv + "' nije pronađena"));
-
-        Postaja postaja = postajaRepository.findByNazivAndMreza(naziv, mreza)
-                .orElseThrow(() -> new NotFoundException(
-                        "Postaja '" + naziv + "' nije pronađena u mreži '" + mrezaNaziv + "'"));
-
-        return mapToDto(postaja);
-    }
-
-    public boolean updatePostaja(String naziv, String nazivEng, boolean aktivna) {
-        Postaja postaja = postajaRepository.findByNaziv(naziv)
-                .orElseThrow(() -> new NotFoundException("Postaja '" + naziv + "' nije pronađena"));
-
-        postaja.setNazivEng(nazivEng);
-        postaja.setAktivna(aktivna);
-
-        postajaRepository.update(postaja);
-        return true;
-    }
+    // =========================
+    // READ
+    // =========================
 
     public List<PostajaDTO> getAllPostaje() {
+        log.info("Dohvat svih postaja");
         return postajaRepository.findAll()
                 .stream()
-                .map(this::mapToDto)
+                .map(mapper::toDto)
                 .toList();
     }
 
-    private PostajaDTO mapToDto(Postaja postaja) {
+    public PostajaDTO getPostajaByNaziv(String naziv) {
+        log.info("Dohvat postaje po nazivu: {}", naziv);
+
+        Postaja postaja = postajaRepository.findByNaziv(naziv)
+                .orElseThrow(() -> {
+                    log.warn("Postaja '{}' nije pronađena", naziv);
+                    return new NotFoundException("Postaja '" + naziv + "' nije pronađena");
+                });
+
         return mapper.toDto(postaja);
+    }
+
+    public PostajaDTO getPostajaByNazivAndMreza(String naziv, String mrezaNaziv) {
+        log.info("Dohvat postaje '{}' u mreži '{}'", naziv, mrezaNaziv);
+
+        Mreza mreza = mrezaRepository.findByNaziv(mrezaNaziv)
+                .orElseThrow(() -> {
+                    log.warn("Mreža '{}' nije pronađena", mrezaNaziv);
+                    return new NotFoundException("Mreža '" + mrezaNaziv + "' nije pronađena");
+                });
+
+        Postaja postaja = postajaRepository.findByNazivAndMreza(naziv, mreza)
+                .orElseThrow(() -> {
+                    log.warn("Postaja '{}' nije pronađena u mreži '{}'", naziv, mrezaNaziv);
+                    return new NotFoundException(
+                            "Postaja '" + naziv + "' nije pronađena u mreži '" + mrezaNaziv + "'");
+                });
+
+        return mapper.toDto(postaja);
+    }
+
+    // =========================
+    // UPDATE
+    // =========================
+
+    public void updatePostaja(String naziv, PostajaDTO dto) {
+        log.info("Ažuriranje postaje '{}'", naziv);
+
+        Postaja postaja = postajaRepository.findByNaziv(naziv)
+                .orElseThrow(() -> {
+                    log.warn("Postaja '{}' za update nije pronađena", naziv);
+                    return new NotFoundException("Postaja '" + naziv + "' nije pronađena");
+                });
+
+        mapper.updateFromDto(postaja, dto);
+        postajaRepository.update(postaja);
+
+        log.info("Postaja '{}' uspješno ažurirana", naziv);
     }
 }

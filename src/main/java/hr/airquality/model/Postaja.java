@@ -29,4 +29,11 @@ public class Postaja {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mreza_id")
     private Mreza mreza;
+
+
+
+    public Postaja(String naziv, Mreza mreza) {
+        this.naziv = naziv;
+        this.mreza = mreza;
+    }
 }
