@@ -1,5 +1,6 @@
 hr\airquality\web\PostajeServlet.class
 hr\airquality\dto\PostajaDTO.class
+hr\airquality\exception\GeneralExceptionMapper.class
 hr\airquality\rest\ApplicationConfig.class
 hr\airquality\service\PostajaService.class
 hr\airquality\web\PostajaServlet.class
@@ -11,14 +12,16 @@ hr\airquality\sync\AirQualitySyncService.class
 hr\airquality\web\FreeMarkerConfig.class
 hr\airquality\service\MrezaService.class
 hr\airquality\repository\PostajaRepository.class
-hr\airquality\exception\GlobalExceptionMapper.class
 hr\airquality\rest\MrezaResource.class
 hr\airquality\model\Postaja.class
 hr\airquality\exception\NotFoundException.class
+hr\airquality\exception\NotFoundExceptionMapper.class
 hr\airquality\model\Mreza.class
 hr\airquality\web\MrezeServlet.class
 hr\airquality\repository\MrezaRepository.class
 hr\airquality\mapper\MrezaMapper.class
 hr\airquality\sync\SyncMapper.class
+hr\airquality\exception\NotFoundExceptionMapper$ErrorResponse.class
+hr\airquality\exception\GeneralExceptionMapper$ErrorResponse.class
 hr\airquality\rest\PostajaResource.class
 hr\airquality\sync\SyncClient.class

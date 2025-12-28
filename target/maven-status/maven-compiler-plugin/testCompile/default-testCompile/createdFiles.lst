@@ -1,0 +1,8 @@
+hr\airquality\exception\NotFoundExceptionMapperTest.class
+hr\airquality\service\PostajaServiceTest.class
+hr\airquality\service\PostajaServiceIT.class
+hr\airquality\mapper\PostajaMapperTest.class
+hr\airquality\sync\AirQualitySyncServiceIT.class
+hr\airquality\service\MrezaServiceIT.class
+hr\airquality\service\MrezaServiceTest.class
+hr\airquality\exception\NotFoundExceptionMapperIT.class

@@ -1,8 +1,9 @@
 C:\Projekti\airquality-app\src\main\java\hr\airquality\dto\MrezaDTO.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\dto\MrezaSimpleDTO.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\dto\PostajaDTO.java
-C:\Projekti\airquality-app\src\main\java\hr\airquality\exception\GlobalExceptionMapper.java
+C:\Projekti\airquality-app\src\main\java\hr\airquality\exception\GeneralExceptionMapper.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\exception\NotFoundException.java
+C:\Projekti\airquality-app\src\main\java\hr\airquality\exception\NotFoundExceptionMapper.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\mapper\MrezaMapper.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\mapper\PostajaMapper.java
 C:\Projekti\airquality-app\src\main\java\hr\airquality\model\Mreza.java
