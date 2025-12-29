@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-//
+
 @Entity
 @Getter
 @Setter
@@ -28,7 +28,7 @@ public class Mreza {
     @OneToMany(mappedBy = "mreza", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Postaja> postaje;
 
-    protected Mreza() { }
+   
 
     public Mreza(String naziv) {
         this.naziv = naziv;

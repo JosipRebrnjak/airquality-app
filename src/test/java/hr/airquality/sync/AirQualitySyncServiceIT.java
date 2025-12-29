@@ -33,7 +33,7 @@ class AirQualitySyncServiceIT {
         assertNotNull(mreza, "Mreza ne smije biti null nakon sync-a");
         assertFalse(mreza.getPostaje().isEmpty(), "Mreza mora imati barem jednu postaju");
 
-        // Opcionalno: provjeri specifičnu postaju
+        // Provjeri specifičnu postaju
         assertTrue(
                 mreza.getPostaje().stream()
                         .anyMatch(p -> "Ksaverska cesta".equals(p.getNaziv())),

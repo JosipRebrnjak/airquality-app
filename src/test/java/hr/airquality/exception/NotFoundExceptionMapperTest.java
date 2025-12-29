@@ -26,7 +26,6 @@ class NotFoundExceptionMapperTest {
 
     @Test
     void shouldIncludeTimestampAndPathIfProvided() {
-        // Ako si dodao konstruktor sa path i timestamp
         NotFoundExceptionMapper.ErrorResponse responseBody =
                 new NotFoundExceptionMapper.ErrorResponse("Greška", "/fm/postaje");
 
