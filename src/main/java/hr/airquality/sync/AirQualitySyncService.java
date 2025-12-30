@@ -5,7 +5,8 @@ import hr.airquality.model.Postaja;
 import hr.airquality.repository.MrezaRepository;
 import hr.airquality.repository.PostajaRepository;
 
-import jakarta.ejb.Stateless;
+
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.json.*;
@@ -16,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Timestamp;
 import java.time.Instant;
 
-@Stateless
+@ApplicationScoped
 public class AirQualitySyncService {
 
     private static final Logger log =

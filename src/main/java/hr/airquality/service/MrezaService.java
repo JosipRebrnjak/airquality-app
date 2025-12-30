@@ -7,26 +7,30 @@ import hr.airquality.mapper.MrezaMapper;
 import hr.airquality.model.Mreza;
 import hr.airquality.repository.MrezaRepository;
 
-import jakarta.ejb.Stateless;
+
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-@Stateless
+
+@ApplicationScoped
 public class MrezaService {
 
     private static final Logger log = LoggerFactory.getLogger(MrezaService.class);
 
-    private final MrezaRepository mrezaRepository;
-    private final MrezaMapper mapper;
+    @Inject
+    private MrezaRepository mrezaRepository;
 
     @Inject
-    public MrezaService(MrezaRepository mrezaRepository,
-                        MrezaMapper mapper) {
-        this.mrezaRepository = mrezaRepository;
-        this.mapper = mapper;
+    private MrezaMapper mapper;
+
+    public MrezaService() {
+        // CDI proxy
     }
 
     // =========================

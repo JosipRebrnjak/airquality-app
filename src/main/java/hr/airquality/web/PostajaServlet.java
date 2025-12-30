@@ -13,6 +13,7 @@ import hr.airquality.dto.PostajaDTO;
 import hr.airquality.exception.NotFoundException;
 import hr.airquality.service.PostajaService;
 import jakarta.ejb.EJB;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -30,7 +31,7 @@ public class PostajaServlet extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(PostajaServlet.class);
 
-    @EJB
+    @Inject
     private PostajaService postajaService;
 
     @Override

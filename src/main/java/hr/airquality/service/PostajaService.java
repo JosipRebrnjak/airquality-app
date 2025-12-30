@@ -8,29 +8,29 @@ import hr.airquality.model.Postaja;
 import hr.airquality.repository.MrezaRepository;
 import hr.airquality.repository.PostajaRepository;
 
-import jakarta.ejb.Stateless;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-@Stateless
+@ApplicationScoped
 public class PostajaService {
 
     private static final Logger log = LoggerFactory.getLogger(PostajaService.class);
 
-    private final PostajaRepository postajaRepository;
-    private final MrezaRepository mrezaRepository;
-    private final PostajaMapper mapper;
+    @Inject
+    private PostajaRepository postajaRepository;
 
     @Inject
-    public PostajaService(PostajaRepository postajaRepository,
-                          MrezaRepository mrezaRepository,
-                          PostajaMapper mapper) {
-        this.postajaRepository = postajaRepository;
-        this.mrezaRepository = mrezaRepository;
-        this.mapper = mapper;
+    private MrezaRepository mrezaRepository;
+
+    @Inject
+    private PostajaMapper mapper;
+
+    public PostajaService(){
+
     }
 
     // =========================

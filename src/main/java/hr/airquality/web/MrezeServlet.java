@@ -3,6 +3,7 @@ package hr.airquality.web;
 import hr.airquality.dto.MrezaDTO;
 import hr.airquality.service.MrezaService;
 import jakarta.ejb.EJB;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +26,7 @@ public class MrezeServlet extends HttpServlet {
 
     private static final Logger log = LoggerFactory.getLogger(MrezeServlet.class);
 
-    @EJB
+    @Inject
     private MrezaService mrezaService;  // samo read operations
 
     @Override
