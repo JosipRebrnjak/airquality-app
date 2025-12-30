@@ -76,6 +76,7 @@ Add the following subsystem (around line 455):
 
 <subsystem xmlns="urn:wildfly:microprofile-openapi-smallrye:1.0"/>
 
+
 Clients
 
 Three different clients were developed:
@@ -83,7 +84,7 @@ Three different clients were developed:
 1. FreeMarker Client
 http://<HOST:PORT>/airquality/fm/mreze
 
-2. React Client
+2. React Client (Needs some work!!!)
 
 Requirements:
 
@@ -102,6 +103,10 @@ Address:
 http://localhost:3000/
 
 3. Simple HTML / jQuery Client
+
+Configured to connect to: API_BASE = "http://localhost:8081/airquality/api";
+
+If u need some other host:port, u can change it in main.js
 
 Open the following file in any browser:
 
