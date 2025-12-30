@@ -2,7 +2,7 @@ package hr.airquality.rest;
 
 import hr.airquality.dto.PostajaDTO;
 import hr.airquality.service.PostajaService;
-
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -10,6 +10,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/stations")
+@RequestScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PostajaResource {
@@ -31,13 +32,10 @@ public class PostajaResource {
     }
 
     @GET
-    @Path("/{naziv}/{mreza}")
-    public Response getPostajaByMreza(
-            @PathParam("naziv") String naziv,
-            @PathParam("mreza") String mrezaNaziv) {
-
-        PostajaDTO postaja = postajaService.getPostajaByNazivAndMreza(naziv, mrezaNaziv);
-        return Response.ok(postaja).build();
+    @Path("/by-network/{mrezaNaziv}")
+    public Response getPostajeByMreza(@PathParam("mrezaNaziv") String mrezaNaziv) {
+        List<PostajaDTO> postaje = postajaService.getPostajeByMreza(mrezaNaziv);
+        return Response.ok(postaje).build();
     }
 
     @PUT

@@ -38,7 +38,7 @@ class PostajaServiceIT {
 
         // Assert – ponovno dohvatimo iz baze
         PostajaDTO updated = postajaService.getPostajaByNaziv("Ksaverska cesta");
-        assertEquals("Ksaverska cesta", updated.getNazivEng());
+        assertEquals("Ksaver street", updated.getNazivEng());
         assertFalse(updated.isAktivna());
     }
 

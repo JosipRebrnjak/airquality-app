@@ -13,8 +13,8 @@ public class FreeMarkerConfig implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_33);
         cfg.setServletContextForTemplateLoading(sce.getServletContext(), "/WEB-INF/templates");
-        cfg.setDefaultEncoding("UTF-8"); // VAŽNO
-        cfg.setOutputEncoding("UTF-8"); // VAŽNO
+        cfg.setDefaultEncoding("UTF-8");
+        cfg.setOutputEncoding("UTF-8"); 
         cfg.setURLEscapingCharset("UTF-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         cfg.setLogTemplateExceptions(false);

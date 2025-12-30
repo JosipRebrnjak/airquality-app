@@ -1,13 +1,13 @@
 package hr.airquality.sync;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ejb.Stateless;
 import jakarta.json.*;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-@ApplicationScoped
+@Stateless
 public class SyncClient {
 
     private static final String API_URL =

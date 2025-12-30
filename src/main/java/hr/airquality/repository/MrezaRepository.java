@@ -22,9 +22,23 @@ public class MrezaRepository {
                 .findFirst();
     }
 
+    public Optional<Mreza> findByNazivWithPostaje(String naziv) {
+        List<Mreza> result = em.createQuery(
+                "SELECT m FROM Mreza m LEFT JOIN FETCH m.postaje WHERE m.naziv = :naziv", Mreza.class)
+                .setParameter("naziv", naziv)
+                .getResultList();
+        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
+    }
+
     public List<Mreza> findAll() {
         return em.createQuery(
                 "SELECT m FROM Mreza m", Mreza.class)
+                .getResultList();
+    }
+
+    public List<Mreza> findAllWithPostaje() {
+        return em.createQuery(
+                "SELECT DISTINCT m FROM Mreza m LEFT JOIN FETCH m.postaje", Mreza.class)
                 .getResultList();
     }
 
@@ -37,3 +51,4 @@ public class MrezaRepository {
         return em.merge(mreza);
     }
 }
+

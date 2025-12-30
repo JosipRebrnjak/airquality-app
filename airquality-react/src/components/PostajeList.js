@@ -7,7 +7,7 @@ function PostajeList({ mrezaNaziv, onBack }) {
 
 
   const fetchPostaje = useCallback(() => {
-    fetch(`/api/stations/${encodeURIComponent(mrezaNaziv)}`)
+    fetch(`/api/stations/by-network/${encodeURIComponent(mrezaNaziv)}`)
       .then(res => res.json())
       .then(data => setPostaje(data))
       .catch(err => console.error("Greška pri dohvat postaja:", err));

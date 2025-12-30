@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
+//Koristimo lombok anotacije da si skratimo vrijeme :)
 @Getter
 @Setter
 public class MrezaDTO {

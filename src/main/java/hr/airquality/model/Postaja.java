@@ -2,6 +2,7 @@ package hr.airquality.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
@@ -9,6 +10,7 @@ import java.sql.Timestamp;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 @Table(name = "postaja")
 public class Postaja {
 

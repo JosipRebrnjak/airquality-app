@@ -154,7 +154,7 @@ $(function () {
     });
 
     function fetchPostaje(nazivMreze) {
-        $.getJSON(`${API_BASE}/stations/${encodeURIComponent(nazivMreze)}`, function (data) {
+        $.getJSON(`${API_BASE}/stations/by-network/${encodeURIComponent(nazivMreze)}`, function (data) {
             postaje = data;
             renderPostaje();
         }).fail(() => alert("Greška pri dohvaćanju postaja"));

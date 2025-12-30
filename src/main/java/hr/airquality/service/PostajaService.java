@@ -8,14 +8,16 @@ import hr.airquality.model.Postaja;
 import hr.airquality.repository.MrezaRepository;
 import hr.airquality.repository.PostajaRepository;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-@ApplicationScoped
+@Stateless
 public class PostajaService {
 
     private static final Logger log = LoggerFactory.getLogger(PostajaService.class);
@@ -28,10 +30,6 @@ public class PostajaService {
 
     @Inject
     private PostajaMapper mapper;
-
-    public PostajaService(){
-
-    }
 
     // =========================
     // READ
@@ -55,6 +53,14 @@ public class PostajaService {
                 });
 
         return mapper.toDto(postaja);
+    }
+
+    public List<PostajaDTO> getPostajeByMreza(String mrezaNaziv) {
+        Mreza mreza = mrezaRepository.findByNazivWithPostaje(mrezaNaziv)
+                .orElseThrow(() -> new NotFoundException("Mreža '" + mrezaNaziv + "' nije pronađena"));
+        return mreza.getPostaje().stream()
+                .map(mapper::toDto)
+                .toList();
     }
 
     public PostajaDTO getPostajaByNazivAndMreza(String naziv, String mrezaNaziv) {

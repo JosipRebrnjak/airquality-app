@@ -111,6 +111,7 @@
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-client</artifactId>
             <version>6.2.15.Final</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- Jakarta Annotations for tests -->

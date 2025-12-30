@@ -12,7 +12,6 @@ import freemarker.template.TemplateException;
 import hr.airquality.dto.PostajaDTO;
 import hr.airquality.exception.NotFoundException;
 import hr.airquality.service.PostajaService;
-import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

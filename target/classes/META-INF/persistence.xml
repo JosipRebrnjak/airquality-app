@@ -8,7 +8,7 @@
         <jta-data-source>java:/jdbc/AirQualityDS</jta-data-source>
 
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>

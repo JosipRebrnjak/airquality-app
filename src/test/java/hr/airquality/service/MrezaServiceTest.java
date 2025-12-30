@@ -34,10 +34,11 @@ class MrezaServiceTest {
     void shouldGetMrezaDtoByNaziv() {
         Mreza mreza = new Mreza("TestMreza");
         MrezaDTO dto = new MrezaDTO("TestMreza", "TestMrezaEng", null);
-
-        when(repository.findByNaziv("TestMreza")).thenReturn(Optional.of(mreza));
+    
+        // mockaj novu metodu
+        when(repository.findByNazivWithPostaje("TestMreza")).thenReturn(Optional.of(mreza));
         when(mapper.toDto(mreza)).thenReturn(dto);
-
+    
         MrezaDTO result = service.getMrezaByNaziv("TestMreza");
         assertEquals("TestMreza", result.getNaziv());
     }

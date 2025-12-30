@@ -5,10 +5,10 @@ import hr.airquality.model.Postaja;
 import hr.airquality.repository.MrezaRepository;
 import hr.airquality.repository.PostajaRepository;
 
-
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+
 import jakarta.json.*;
 
 import org.slf4j.Logger;
@@ -17,27 +17,24 @@ import org.slf4j.LoggerFactory;
 import java.sql.Timestamp;
 import java.time.Instant;
 
-@ApplicationScoped
+
+@Stateless
 public class AirQualitySyncService {
 
     private static final Logger log =
             LoggerFactory.getLogger(AirQualitySyncService.class);
 
-    private final SyncClient client;
-    private final SyncMapper mapper;
-    private final MrezaRepository mrezaRepository;
-    private final PostajaRepository postajaRepository;
+    @Inject
+    private SyncClient client;
 
     @Inject
-    public AirQualitySyncService(SyncClient client,
-                                 SyncMapper mapper,
-                                 MrezaRepository mrezaRepository,
-                                 PostajaRepository postajaRepository) {
-        this.client = client;
-        this.mapper = mapper;
-        this.mrezaRepository = mrezaRepository;
-        this.postajaRepository = postajaRepository;
-    }
+    private SyncMapper mapper;
+
+    @Inject
+    private MrezaRepository mrezaRepository;
+
+    @Inject
+    private PostajaRepository postajaRepository;
 
     @Transactional
     public void sync() {

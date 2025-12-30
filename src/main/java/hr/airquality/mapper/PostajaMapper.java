@@ -2,10 +2,10 @@ package hr.airquality.mapper;
 
 import hr.airquality.dto.PostajaDTO;
 import hr.airquality.model.Postaja;
+import jakarta.ejb.Stateless;
 
-import jakarta.enterprise.context.ApplicationScoped;
 
-@ApplicationScoped
+@Stateless
 public class PostajaMapper {
 
     public PostajaDTO toDto(Postaja postaja) {

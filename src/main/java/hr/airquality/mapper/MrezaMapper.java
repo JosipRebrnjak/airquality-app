@@ -5,10 +5,10 @@ import hr.airquality.dto.MrezaSimpleDTO;
 import hr.airquality.dto.PostajaDTO;
 import hr.airquality.model.Mreza;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ejb.Stateless;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@Stateless
 public class MrezaMapper {
 
     public MrezaDTO toDto(Mreza mreza) {

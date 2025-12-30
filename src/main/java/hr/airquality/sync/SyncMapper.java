@@ -2,11 +2,10 @@ package hr.airquality.sync;
 
 import hr.airquality.model.Mreza;
 import hr.airquality.model.Postaja;
-
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ejb.Stateless;
 import jakarta.json.JsonObject;
 
-@ApplicationScoped
+@Stateless
 public class SyncMapper {
 
     public void updateMreza(Mreza mreza, JsonObject json) {
