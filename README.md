@@ -47,8 +47,11 @@ Runtime environment: OpenJDK Runtime Environment Corretto 17.0.14.7.1 (build 17.
    )
 
 <host:port> - host and port of database created in the first step e.g localhost:3306
+
 <db_name> - name of the database 
+
 <username> - user with privileges to access database
+
 <password> - password for the user
 
 
@@ -69,12 +72,12 @@ In standalone.xml:
 
 Add the following extension (around line 38):
 
-<extension module="org.wildfly.extension.microprofile.openapi-smallrye"/>
+`<extension module="org.wildfly.extension.microprofile.openapi-smallrye"/>`
 
 
 Add the following subsystem (around line 455):
 
-<subsystem xmlns="urn:wildfly:microprofile-openapi-smallrye:1.0"/>
+`<subsystem xmlns="urn:wildfly:microprofile-openapi-smallrye:1.0"/>`
 
 
 Clients
